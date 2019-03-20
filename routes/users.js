@@ -84,26 +84,28 @@ router.post("/login", (req, res) => {
 //LOGOUT 
 
 //logout and clear cookies
-router.get('/logout', (req,res, next)=>{
-  req.session.destroy ((err) => {
+router.post('/logout', (req,res, next)=>{
+  debugger
+  req.session.destroy((err) => {
     if(err){
      console.log('error logout')
     } else{
-    res.clearCookie();
-    debugger
+    res.clearCookie('username');
+    console.log('adios')
     res.status(200).json({message: 'log out success'})
     }
   });
 });
 
 
-// router.get("/users/profile", (req, res)=> {
-//   if(req.session.user) {
-//     res.json(req.session.user)
-//   } else {
-//     res.status(403).json({message: "Unauthorized"})
-//   }
-// })
+router.get("/profile", (req, res)=> {
+  debugger
+  if(req.session.user) {
+    res.json(req.session.user)
+  } else {
+    res.status(403).json({message: "Unauthorized"})
+  }
+})
 
 
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
+import config from "./config.json";
 
 class Login extends Component {
     state = { 
@@ -23,7 +24,8 @@ class Login extends Component {
         // debugger
         axios({
             method: 'post',
-            url: 'http://localhost:3001/login',
+            url: `${config.api}/login`,
+            // url: 'http://localhost:3001/login',
             data: newUser,
             withCredentials : true,
             

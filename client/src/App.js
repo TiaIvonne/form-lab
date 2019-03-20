@@ -9,6 +9,7 @@ import Profile from './Profile'
 import { Route, Link, Switch } from "react-router-dom";
 import axios from 'axios'
 import { createBrowserHistory } from 'history'
+import config from "./config.json";
 
 class App extends Component {
 
@@ -30,8 +31,12 @@ class App extends Component {
   }
 
   logout = ()=>{
-    axios.get('http://localhost:3001/logout')
-          .then(response =>{ 
+    axios({
+          method: 'post',
+          url: `${config.api}/logout`,
+          // url: 'http://localhost:3001/login',
+          withCredentials : true
+    }) .then(response =>{ 
               console.log('eliminada la cuenta')
               // this.setState({
               //   loggedIn: false,
@@ -53,12 +58,17 @@ class App extends Component {
       <Link to='/profile'>Profile </Link>
       <Link to="/signup">SignUp </Link>
       <Link to="/login">Login </Link>
-      <Link to="/logout" onClick={this.logout}>Logout</Link>
+      <Link to="/" >
+          <button class="button is-success" onClick={this.logout}>Logout</button>
+      </Link>
 
       <Switch>
+        <Route exact path='/' render={(props) => <Login {...props} loggedIn={this.loggedIn}/>} />
         <Route path='/signup' render={(props) => <SignUp {...props} loggedIn={this.loggedIn}/>} />
         <Route path='/login'  render={(props) => <Login {...props} loggedIn={this.loggedIn}/>} />
-        <PrivateRouter path='/profile' component={Profile} myUsername={this.state.username} loggedIn={this.state.loggedIn}/>
+        <Route path='/profile'  render={(props) => <Profile {...props} loggedIn={this.loggedIn}/>} />
+
+        {/* <PrivateRouter path='/profile' component={Profile} myUsername={this.state.username} loggedIn={this.state.loggedIn}/> */}
       
       </Switch>
      

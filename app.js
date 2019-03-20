@@ -9,6 +9,10 @@ const cors =require('cors')
 const session =require('express-session')
 const MongoStore=require('connect-mongo')(session);
 
+var app = express();
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -17,8 +21,8 @@ mongoose.connect('mongodb://localhost/formlab', { useNewUrlParser: true }, funct
     if(err) console.log("ERROR")
     else console.log("connected")
 })
-debugger
-var app = express();
+
+
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true

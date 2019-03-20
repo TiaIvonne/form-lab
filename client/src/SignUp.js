@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios  from 'axios';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
+import config from "./config.json";
 
 class SignUp extends Component {
     //set a values for form
@@ -25,7 +26,8 @@ class SignUp extends Component {
         // debugger
         axios({
             method: 'post',
-            url: 'http://localhost:3001/signup',
+            url: `${config.api}/signup`,
+            // url: 'http://localhost:3001/signup',
             data: newUser,
             withCredentials : true,
           }).then(databaseResponse => {
